@@ -5,78 +5,75 @@ import org.junit.jupiter.api.Test;
 import ru.ainur.calculator.exceptions.DivideByZeroException;
 import ru.ainur.calculator.services.CalculatorService;
 
+import static ru.ainur.calculator.Constats.*;
+
 public class CalculatorServiceTests {
+    private final CalculatorService calculatorService = new CalculatorService();
     @Test
-    public void plus() {
-        CalculatorService calculatorService = new CalculatorService();
-        int number1 = 1;
-        int number2 = 2;
-        int actual = number1 + number2;
-        int excepted = (calculatorService.plus(number1 + "", number2 + ""));
-        Assertions.assertEquals(excepted, actual);
+    public void shouldReturnTwoWhenSummOneAndOne() {
 
-        number1 = 44;
-        number2 = 0;
-        actual = number1 + number2;
-        excepted = (calculatorService.plus(number1 + "", number2 + ""));
-        Assertions.assertEquals(excepted, actual);
-
-    }
-
-    @Test
-    public void minus() {
-        CalculatorService calculatorService = new CalculatorService();
-        int number1 = 10;
-        int number2 = 2;
-        int actual = number1 - number2;
-        int excepted = (calculatorService.minus(number1 + "", number2 + ""));
-        Assertions.assertEquals(excepted, actual);
-
-        number1 = 44;
-        number2 = 55;
-        actual = number1 - number2;
-        excepted = (calculatorService.minus(number1 + "", number2 + ""));
+        int actual = ONE + ONE;
+        int excepted = (calculatorService.plus(ONE , ONE ));
         Assertions.assertEquals(excepted, actual);
     }
 
     @Test
-    public void multiply() {
-        CalculatorService calculatorService = new CalculatorService();
-        int number1 = 10;
-        int number2 = 33;
-        int actual = number1 * number2;
-        int excepted = (calculatorService.multiply(number1 + "", number2 + ""));
-        Assertions.assertEquals(excepted, actual);
+    public void shouldReturnTwoWhenSumOneAndTwo() {
 
-        number1 = 11;
-        number2 = 0;
-        actual = number1 * number2;
-        excepted = (calculatorService.multiply(number1 + "", number2 + ""));
+        int actual = ONE + TWO;
+        int excepted = (calculatorService.plus(ONE, TWO));
+        Assertions.assertEquals(excepted, actual);
+    }
+    @Test
+    public void shouldReturnTwoWhenSubstractTwoAndOne() {
+
+        int actual = TWO - ONE;
+        int excepted = (calculatorService.minus(TWO , ONE));
+        Assertions.assertEquals(excepted, actual);
+    }
+    @Test
+    public void shouldReturnTwoWhenSubstractOneAndOne() {
+
+        int actual = ONE - ONE;
+        int excepted = (calculatorService.minus(ONE , ONE));
         Assertions.assertEquals(excepted, actual);
     }
 
     @Test
-    public void divide() {
-        CalculatorService calculatorService = new CalculatorService();
-        int number1 = 10;
-        int number2 = 33;
-        double actual = (double) number1 / number2;
-        double excepted = (calculatorService.divide(number1 + "", number2 + ""));
-        Assertions.assertEquals(excepted, actual);
+    public void shouldReturnTwoWhenMultiplyOneAndOne() {
 
-        number1 = 12;
-        number2 = 3;
-        actual = number1 / number2;
-        excepted = (calculatorService.divide(number1 + "", number2 + ""));
+        int actual = ONE * ONE;
+        int excepted = (calculatorService.multiply(ONE, ONE));
         Assertions.assertEquals(excepted, actual);
-
-        number1 = 100;
-        number2 = 0;
-        try {
-            excepted = (calculatorService.divide(number1 + "", number2 + ""));
-            Assertions.assertFalse(true);
-        } catch (DivideByZeroException e) {
-            Assertions.assertNotEquals("", e.getLocalizedMessage());
-        }
     }
+
+    @Test
+    public void shouldReturnTwoWhenMultiplyTwoAndOne() {
+
+        int actual = TWO * ONE;
+        int excepted = (calculatorService.multiply(TWO , ONE));
+        Assertions.assertEquals(excepted, actual);
+    }
+
+    @Test
+    public void shouldReturnTwoWhenDivideOneAndOne() {
+
+        double actual = ONE / ONE;
+        double excepted = (calculatorService.divide(ONE , ONE));
+        Assertions.assertEquals(excepted, actual);
+    }
+
+    @Test
+    public void shouldReturnTwoWhenDivideTwoAndOne() {
+
+        double actual = TWO / ONE;
+        double excepted = (calculatorService.divide(TWO , ONE ));
+        Assertions.assertEquals(excepted, actual);
+    }
+
+    @Test
+    public void shouldThrowDivizonByZeroExceptionWhenivizionByZero() {
+        Assertions.assertThrows(DivideByZeroException.class,()->calculatorService.divide(ONE,ZERO));
+    }
+
 }
