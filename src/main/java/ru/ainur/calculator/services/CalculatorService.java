@@ -1,6 +1,9 @@
-package ru.ainur.calculator;
+package ru.ainur.calculator.services;
 
 import org.springframework.stereotype.Service;
+import ru.ainur.calculator.interfaces.CalculatorServiceInterface;
+import ru.ainur.calculator.exceptions.DivideByZeroException;
+import ru.ainur.calculator.exceptions.EmptyArgumentException;
 
 @Service
 public class CalculatorService implements CalculatorServiceInterface {
@@ -9,47 +12,44 @@ public class CalculatorService implements CalculatorServiceInterface {
         return "<h1><p align=\"center\">Добро пожаловать в калькулятор</p><h1>";
     }
 
-    public String plus(String numberOne, String numberTwo) {
+    public int plus(String numberOne, String numberTwo) {
         if (valideStringToInt(numberOne) == false || valideStringToInt(numberTwo) == false) {
-            return notNumber();
+            throw new EmptyArgumentException("Не задано одно из чискл");
         }
         int numberOneInt = Integer.parseInt(numberOne);
         int numberTwoInt = Integer.parseInt(numberTwo);
-        int result = numberOneInt + numberTwoInt;
-        return "<h1><p align=\"center\">" + numberOneInt + "+" + numberTwoInt + "=" + result + "</p><h1>";
+        return numberOneInt + numberTwoInt;
     }
 
-    public String minus(String numberOne, String numberTwo) {
+    public int minus(String numberOne, String numberTwo) {
         if (valideStringToInt(numberOne) == false || valideStringToInt(numberTwo) == false) {
-            return notNumber();
+            throw new EmptyArgumentException("Не задано одно из чискл");
         }
         int numberOneInt = Integer.parseInt(numberOne);
         int numberTwoInt = Integer.parseInt(numberTwo);
-        int result = numberOneInt - numberTwoInt;
-        return "<h1><p align=\"center\">" + numberOneInt + "-" + numberTwoInt + "=" + result + "</p><h1>";
+        return numberOneInt - numberTwoInt;
     }
 
-    public String multiply(String numberOne, String numberTwo) {
+    public int multiply(String numberOne, String numberTwo) {
         if (valideStringToInt(numberOne) == false || valideStringToInt(numberTwo) == false) {
-            return notNumber();
+            throw new EmptyArgumentException("Не задано одно из чискл");
         }
         int numberOneInt = Integer.parseInt(numberOne);
         int numberTwoInt = Integer.parseInt(numberTwo);
-        int result = numberOneInt * numberTwoInt;
-        return "<h1><p align=\"center\">" + numberOneInt + "*" + numberTwoInt + "=" + result + "</p><h1>";
+        return numberOneInt * numberTwoInt;
     }
 
-    public String divide(String numberOne, String numberTwo) {
+    public double divide(String numberOne, String numberTwo) {
         if (valideStringToInt(numberOne) == false || valideStringToInt(numberTwo) == false) {
-            return notNumber();
+            throw new EmptyArgumentException("Не задано одно из чискл");
         }
         int numberOneInt = Integer.parseInt(numberOne);
         int numberTwoInt = Integer.parseInt(numberTwo);
         if (numberTwoInt == 0) {
-            return divideZero();
+            throw new DivideByZeroException("На ноль делить нельзя");
         }
         double result = (double) numberOneInt / numberTwoInt;
-        return "<h1><p align=\"center\">" + numberOneInt + "/" + numberTwoInt + "=" + result + "</p><h1>";
+        return result;
     }
 
     private boolean valideStringToInt(String string) {
@@ -65,13 +65,4 @@ public class CalculatorService implements CalculatorServiceInterface {
         }
         return true;
     }
-
-    private String notNumber() {
-        return "<h1><p align=\"center\">Ошибка! Не задано число.</p><h1>";
-    }
-
-    private String divideZero() {
-        return "<h1><p align=\"center\">Ошибка! На ноль делить нельзя</p><h1>";
-    }
-
 }
